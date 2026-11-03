@@ -1,0 +1,17 @@
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Logs generados al ejecutar (se conserva un ejemplo en docs/)
+logs/*.log
+
+# Configuración de editores y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
