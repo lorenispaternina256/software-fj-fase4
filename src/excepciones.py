@@ -88,3 +88,54 @@ class ParametroFaltanteError(ValidacionError):
     """Falta un parámetro obligatorio (llega ``None`` o vacío)."""
 
     codigo_por_defecto = "VAL-002"
+
+
+# ---------------------------------------------------------------------------
+# Errores relacionados con servicios
+# ---------------------------------------------------------------------------
+class ServicioError(SoftwareFJError):
+    """Error general relacionado con los servicios ofrecidos."""
+
+    codigo_por_defecto = "SRV-000"
+
+
+class ServicioNoDisponibleError(ServicioError):
+    """Se intentó usar un servicio que no está disponible o sin cupo."""
+
+    codigo_por_defecto = "SRV-001"
+
+
+class ParametroServicioInvalidoError(ServicioError):
+    """Un parámetro de creación o uso de un servicio es inválido."""
+
+    codigo_por_defecto = "SRV-002"
+
+
+# ---------------------------------------------------------------------------
+# Errores relacionados con reservas
+# ---------------------------------------------------------------------------
+class ReservaError(SoftwareFJError):
+    """Error general relacionado con reservas."""
+
+    codigo_por_defecto = "RES-000"
+
+
+class ReservaInvalidaError(ReservaError):
+    """La reserva no se puede crear o procesar con los datos recibidos."""
+
+    codigo_por_defecto = "RES-001"
+
+
+class OperacionNoPermitidaError(ReservaError):
+    """La operación no es válida para el estado actual de la reserva."""
+
+    codigo_por_defecto = "RES-002"
+
+
+# ---------------------------------------------------------------------------
+# Errores de cálculo
+# ---------------------------------------------------------------------------
+class CalculoInconsistenteError(SoftwareFJError):
+    """El cálculo de un costo produjo o recibió valores incoherentes."""
+
+    codigo_por_defecto = "CAL-001"
