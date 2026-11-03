@@ -211,3 +211,191 @@ class Servicio(EntidadBase):
     @abstractmethod
     def describir(self) -> str:
         """Descripción legible del servicio."""
+
+
+# ===========================================================================
+# Servicio 1: Reserva de salas
+# ===========================================================================
+class ReservaSala(Servicio):
+    """Reserva de una sala de reuniones por horas."""
+
+    # Recargo por hora si la sala incluye proyector
+    RECARGO_PROYECTOR: float = 15000.0
+    # Máximo de horas que se puede reservar una sala en un día
+    MAX_HORAS: int = 12
+
+    def __init__(self, nombre: str, tarifa_base: float, capacidad: int,
+                 tiene_proyector: bool = False, disponible: bool = True) -> None:
+        """
+        Args:
+            capacidad: número máximo de personas (entero mayor que cero).
+            tiene_proyector: si la sala incluye proyector.
+        """
+        # Atributos comunes validados por la clase padre
+        super().__init__(nombre, tarifa_base, disponible)
+        # La capacidad debe ser un entero positivo
+        if isinstance(capacidad, bool) or not isinstance(capacidad, int) \
+                or capacidad <= 0:
+            raise ParametroServicioInvalidoError(
+                f"La capacidad '{capacidad}' debe ser un entero mayor que cero")
+        self._capacidad: int = capacidad
+        self._tiene_proyector: bool = bool(tiene_proyector)
+
+    def validar_parametros(self, duracion: float, **opciones: object) -> None:
+        """Valida horas (1 a 12) y que las personas no superen la capacidad."""
+        # Duración positiva (validación común)
+        horas = self._validar_duracion(duracion)
+        # Límite de horas por reserva
+        if horas > self.MAX_HORAS:
+            raise ParametroServicioInvalidoError(
+                f"Una sala se reserva máximo {self.MAX_HORAS} horas")
+        # Número de asistentes (1 si no se indica)
+        personas = opciones.get("personas", 1)
+        if not isinstance(personas, int) or personas <= 0:
+            raise ParametroServicioInvalidoError(
+                "El número de personas debe ser un entero positivo")
+        # No puede superar la capacidad de la sala
+        if personas > self._capacidad:
+            raise ParametroServicioInvalidoError(
+                f"{personas} personas superan la capacidad de la sala "
+                f"({self._capacidad})")
+
+    def calcular_costo(self, duracion: float, impuesto: float | None = None,
+                       descuento: float | None = None,
+                       **opciones: object) -> float:
+        """Costo = (tarifa + recargo de proyector) x horas, con ajustes."""
+        # Se validan los parámetros antes de calcular
+        self.validar_parametros(duracion, **opciones)
+        # Tarifa por hora, incluyendo recargo si hay proyector
+        tarifa_hora = self._tarifa_base + (
+            self.RECARGO_PROYECTOR if self._tiene_proyector else 0)
+        # Subtotal antes de impuestos y descuentos
+        subtotal = tarifa_hora * duracion
+        # Se aplican los ajustes opcionales
+        return self._aplicar_ajustes(subtotal, impuesto, descuento)
+
+    def describir(self) -> str:
+        """Descripción de la sala."""
+        proyector = "con proyector" if self._tiene_proyector else "sin proyector"
+        estado = "disponible" if self._disponible else "NO disponible"
+        return (f"[Sala] {self._nombre}: capacidad {self._capacidad} personas, "
+                f"{proyector}, ${self._tarifa_base:,.0f}/hora ({estado})")
+
+
+# ===========================================================================
+# Servicio 2: Alquiler de equipos
+# ===========================================================================
+class AlquilerEquipo(Servicio):
+    """Alquiler de equipos tecnológicos por días."""
+
+    def __init__(self, nombre: str, tarifa_base: float, tipo_equipo: str,
+                 cantidad_disponible: int, disponible: bool = True) -> None:
+        """
+        Args:
+            tipo_equipo: por ejemplo "Portátil" o "Video beam".
+            cantidad_disponible: unidades en inventario (entero >= 0).
+        """
+        super().__init__(nombre, tarifa_base, disponible)
+        # Tipo de equipo obligatorio
+        if not isinstance(tipo_equipo, str) or not tipo_equipo.strip():
+            raise ParametroServicioInvalidoError(
+                "El tipo de equipo es obligatorio")
+        # Inventario no negativo
+        if isinstance(cantidad_disponible, bool) \
+                or not isinstance(cantidad_disponible, int) \
+                or cantidad_disponible < 0:
+            raise ParametroServicioInvalidoError(
+                "La cantidad disponible debe ser un entero mayor o igual a 0")
+        self._tipo_equipo: str = tipo_equipo.strip()
+        self._cantidad_disponible: int = cantidad_disponible
+
+    def verificar_disponibilidad(self) -> None:
+        """Sobrescribe la verificación: además exige inventario > 0."""
+        # Primero la verificación general de la clase padre
+        super().verificar_disponibilidad()
+        # Sin unidades no hay cupo
+        if self._cantidad_disponible == 0:
+            raise ServicioNoDisponibleError(
+                f"No quedan unidades de '{self._nombre}'")
+
+    def validar_parametros(self, duracion: float, **opciones: object) -> None:
+        """Valida días y que la cantidad pedida exista en inventario."""
+        self._validar_duracion(duracion)
+        # Unidades solicitadas (1 por defecto)
+        cantidad = opciones.get("cantidad", 1)
+        if not isinstance(cantidad, int) or cantidad <= 0:
+            raise ParametroServicioInvalidoError(
+                "La cantidad solicitada debe ser un entero positivo")
+        # No se puede alquilar más de lo que hay
+        if cantidad > self._cantidad_disponible:
+            raise ServicioNoDisponibleError(
+                f"Se pidieron {cantidad} unidades de '{self._nombre}' y solo "
+                f"hay {self._cantidad_disponible}")
+
+    def calcular_costo(self, duracion: float, impuesto: float | None = None,
+                       descuento: float | None = None,
+                       **opciones: object) -> float:
+        """Costo = tarifa x días x cantidad, con ajustes."""
+        self.validar_parametros(duracion, **opciones)
+        cantidad = opciones.get("cantidad", 1)
+        subtotal = self._tarifa_base * duracion * cantidad
+        return self._aplicar_ajustes(subtotal, impuesto, descuento)
+
+    def describir(self) -> str:
+        """Descripción del equipo."""
+        estado = "disponible" if self._disponible else "NO disponible"
+        return (f"[Equipo] {self._nombre}: tipo {self._tipo_equipo}, "
+                f"{self._cantidad_disponible} unidades, "
+                f"${self._tarifa_base:,.0f}/día ({estado})")
+
+
+# ===========================================================================
+# Servicio 3: Asesorías especializadas
+# ===========================================================================
+class AsesoriaEspecializada(Servicio):
+    """Asesoría profesional por horas, con precio según el nivel del experto."""
+
+    # Multiplicador de la tarifa según el nivel del asesor
+    MULTIPLICADORES: dict[str, float] = {"junior": 1.0, "senior": 1.5,
+                                         "experto": 2.0}
+
+    def __init__(self, nombre: str, tarifa_base: float, area: str,
+                 nivel_experto: str = "junior", disponible: bool = True) -> None:
+        """
+        Args:
+            area: área de conocimiento, por ejemplo "Ciberseguridad".
+            nivel_experto: "junior", "senior" o "experto".
+        """
+        super().__init__(nombre, tarifa_base, disponible)
+        if not isinstance(area, str) or not area.strip():
+            raise ParametroServicioInvalidoError("El área de asesoría es obligatoria")
+        # Se normaliza el nivel para comparar sin importar mayúsculas
+        nivel = str(nivel_experto).strip().lower()
+        if nivel not in self.MULTIPLICADORES:
+            raise ParametroServicioInvalidoError(
+                f"Nivel '{nivel_experto}' inválido. Opciones: "
+                f"{', '.join(self.MULTIPLICADORES)}")
+        self._area: str = area.strip()
+        self._nivel_experto: str = nivel
+
+    def validar_parametros(self, duracion: float, **opciones: object) -> None:
+        """Valida horas (máximo 8 por sesión)."""
+        horas = self._validar_duracion(duracion)
+        if horas > 8:
+            raise ParametroServicioInvalidoError(
+                "Una asesoría no puede superar 8 horas por sesión")
+
+    def calcular_costo(self, duracion: float, impuesto: float | None = None,
+                       descuento: float | None = None,
+                       **opciones: object) -> float:
+        """Costo = tarifa x horas x multiplicador del nivel, con ajustes."""
+        self.validar_parametros(duracion, **opciones)
+        multiplicador = self.MULTIPLICADORES[self._nivel_experto]
+        subtotal = self._tarifa_base * duracion * multiplicador
+        return self._aplicar_ajustes(subtotal, impuesto, descuento)
+
+    def describir(self) -> str:
+        """Descripción de la asesoría."""
+        estado = "disponible" if self._disponible else "NO disponible"
+        return (f"[Asesoría] {self._nombre}: área {self._area}, nivel "
+                f"{self._nivel_experto}, ${self._tarifa_base:,.0f}/hora ({estado})")
