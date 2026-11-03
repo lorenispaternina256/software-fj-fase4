@@ -1,0 +1,127 @@
+2026-11-03 16:39:18 | INFO     | software_fj.main | ========== INICIO DE LA EJECUCIÓN ==========
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Sistema de gestión Software FJ iniciado
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 1: Registrar cliente válido (Ana) ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Cliente registrado: Cliente #1: Ana Gómez | Doc: 1012345678 | ana@mail.com | Tel: 3001234567
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Registrar cliente 'Ana Gómez'
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Registrar cliente 'Ana Gómez'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 2: Registrar otro cliente válido (Carlos) ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Cliente registrado: Cliente #2: Carlos Pérez | Doc: 79856412 | carlos.perez@empresa.co | Tel: 3159876543
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Registrar cliente 'Carlos Pérez'
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Registrar cliente 'Carlos Pérez'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 3: Registrar cliente con correo inválido ('ana@') ===
+2026-11-03 16:39:18 | WARNING  | software_fj.src.sistema | FALLO - Registrar cliente 'Laura Ruiz' -> ClienteInvalidoError: [CLI-001] El correo 'ana@' no tiene un formato válido (campo: correo)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Registrar cliente 'Laura Ruiz'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 4: Registrar cliente con documento con letras ===
+2026-11-03 16:39:18 | WARNING  | software_fj.src.sistema | FALLO - Registrar cliente 'Pedro Díaz' -> ClienteInvalidoError: [CLI-001] El documento '10A2345B' solo puede contener dígitos (campo: documento)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Registrar cliente 'Pedro Díaz'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 5: Registrar cliente con parámetro faltante (correo = None) ===
+2026-11-03 16:39:18 | WARNING  | software_fj.src.sistema | FALLO - Registrar cliente 'María López' -> ParametroFaltanteError: [VAL-002] El campo 'correo' es obligatorio (campo: correo)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Registrar cliente 'María López'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 6: Registrar cliente con teléfono con letras (error encadenado) ===
+2026-11-03 16:39:18 | WARNING  | software_fj.src.sistema | FALLO - Registrar cliente 'Sofía Mora' -> ClienteInvalidoError: [CLI-001] El teléfono '300ABC4567' debe contener solo números (campo: telefono)
+2026-11-03 16:39:18 | WARNING  | software_fj.src.sistema |    Causa original: ValueError: invalid literal for int() with base 10: '300ABC4567'
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Registrar cliente 'Sofía Mora'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 7: Registrar cliente con documento duplicado ===
+2026-11-03 16:39:18 | WARNING  | software_fj.src.sistema | FALLO - Registrar cliente 'Ana Duplicada' -> ClienteInvalidoError: [CLI-001] Ya existe un cliente con documento 1012345678 (campo: documento)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Registrar cliente 'Ana Duplicada'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 8: Crear servicio ReservaSala válido ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Servicio creado: [Sala] Sala Innovación: capacidad 10 personas, con proyector, $50,000/hora (disponible)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Crear servicio sala 'Sala Innovación'
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear servicio sala 'Sala Innovación'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 9: Crear servicio AlquilerEquipo válido ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Servicio creado: [Equipo] Portátiles Dell: tipo Portátil, 5 unidades, $80,000/día (disponible)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Crear servicio equipo 'Portátiles Dell'
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear servicio equipo 'Portátiles Dell'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 10: Crear servicio AsesoriaEspecializada válido ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Servicio creado: [Asesoría] Asesoría Ciberseguridad: área Ciberseguridad, nivel senior, $120,000/hora (disponible)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Crear servicio asesoria 'Asesoría Ciberseguridad'
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear servicio asesoria 'Asesoría Ciberseguridad'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 11: Crear servicio con tarifa negativa ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear servicio sala 'Sala Barata' -> ParametroServicioInvalidoError: [SRV-002] La tarifa debe ser mayor que cero (recibido: -1000.0)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear servicio sala 'Sala Barata'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 12: Crear asesoría con nivel de experto inexistente ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear servicio asesoria 'Asesoría Cloud' -> ParametroServicioInvalidoError: [SRV-002] Nivel 'master' inválido. Opciones: junior, senior, experto
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear servicio asesoria 'Asesoría Cloud'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 13: Crear servicio con parámetro faltante (error encadenado) ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear servicio equipo 'Video Beam' -> ParametroServicioInvalidoError: [SRV-002] Parámetros incorrectos para crear 'equipo'
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema |    Causa original: TypeError: AlquilerEquipo.__init__() missing 2 required positional arguments: 'tipo_equipo' and 'cantidad_disponible'
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear servicio equipo 'Video Beam'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 14: Crear un segundo servicio de sala (quedará no disponible) ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Servicio creado: [Sala] Sala Auditorio: capacidad 80 personas, con proyector, $200,000/hora (disponible)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Crear servicio sala 'Sala Auditorio'
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear servicio sala 'Sala Auditorio'
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 15: Reserva válida de sala: crear, confirmar y procesar con IVA 19 % ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva creada: Reserva #12: Ana Gómez -> Sala Innovación | duración 3 | estado Pendiente | costo por calcular
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Crear reserva de 'Sala Innovación' para doc 1012345678
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Sala Innovación' para doc 1012345678
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva #12 confirmada
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Confirmar reserva #12
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Confirmar reserva #12
+2026-11-03 16:39:18 | INFO     | software_fj.src.reserva | Intento de procesamiento de la reserva #12 finalizado (estado actual: Procesada)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva #12 procesada. Costo final: $232050.00
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Procesar reserva #12 (impuesto=19, descuento=None)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Procesar reserva #12 (impuesto=19, descuento=None)
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 16: Reservar un servicio NO disponible ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Servicio 'Sala Auditorio' marcado como NO disponible
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Marcar 'Sala Auditorio' como no disponible
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Marcar 'Sala Auditorio' como no disponible
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear reserva de 'Sala Auditorio' para doc 79856412 -> ServicioNoDisponibleError: [SRV-001] El servicio 'Sala Auditorio' no está disponible
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Sala Auditorio' para doc 79856412
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 17: Reserva con duración 0 ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear reserva de 'Asesoría Ciberseguridad' para doc 79856412 -> ReservaInvalidaError: [RES-001] La duración de la reserva debe ser mayor que cero (recibido: 0)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Asesoría Ciberseguridad' para doc 79856412
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 18: Reserva con duración negativa ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear reserva de 'Portátiles Dell' para doc 79856412 -> ReservaInvalidaError: [RES-001] La duración de la reserva debe ser mayor que cero (recibido: -2)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Portátiles Dell' para doc 79856412
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 19: Reserva para un cliente inexistente ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear reserva de 'Sala Innovación' para doc 999999999 -> ReservaInvalidaError: [RES-001] No existe un cliente con documento 999999999
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Sala Innovación' para doc 999999999
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 20: Reserva de sala que supera la capacidad (error encadenado) ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear reserva de 'Sala Innovación' para doc 1012345678 -> ReservaInvalidaError: [RES-001] Parámetros de reserva inválidos: 25 personas superan la capacidad de la sala (10)
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema |    Causa original: ParametroServicioInvalidoError: [SRV-002] 25 personas superan la capacidad de la sala (10)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Sala Innovación' para doc 1012345678
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 21: Alquilar más equipos de los disponibles ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Crear reserva de 'Portátiles Dell' para doc 79856412 -> ServicioNoDisponibleError: [SRV-001] Se pidieron 10 unidades de 'Portátiles Dell' y solo hay 5
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Portátiles Dell' para doc 79856412
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 22: Cancelar una reserva ya cancelada ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva creada: Reserva #13: Carlos Pérez -> Portátiles Dell | duración 3 | estado Pendiente | costo por calcular
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Crear reserva de 'Portátiles Dell' para doc 79856412
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Portátiles Dell' para doc 79856412
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva #13 cancelada
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Cancelar reserva #13
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Cancelar reserva #13
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Cancelar reserva #13 -> OperacionNoPermitidaError: [RES-002] No se puede cancelar la reserva #13: ya está Cancelada
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Cancelar reserva #13
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 23: Procesar con descuento del 150 % (cálculo inconsistente encadenado) ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva creada: Reserva #14: Carlos Pérez -> Asesoría Ciberseguridad | duración 2 | estado Pendiente | costo por calcular
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Crear reserva de 'Asesoría Ciberseguridad' para doc 79856412
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Asesoría Ciberseguridad' para doc 79856412
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva #14 confirmada
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Confirmar reserva #14
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Confirmar reserva #14
+2026-11-03 16:39:18 | INFO     | software_fj.src.reserva | Intento de procesamiento de la reserva #14 finalizado (estado actual: Confirmada)
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Procesar reserva #14 (impuesto=19, descuento=150) -> ReservaInvalidaError: [RES-001] No se pudo procesar la reserva #14: cálculo inconsistente
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema |    Causa original: CalculoInconsistenteError: [CAL-001] Descuento inválido: 150.0% (debe estar entre 0 y 100)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Procesar reserva #14 (impuesto=19, descuento=150)
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 24: Misma reserva con descuento válido del 10 % + IVA → procesada ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.reserva | Intento de procesamiento de la reserva #14 finalizado (estado actual: Procesada)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva #14 procesada. Costo final: $385560.00
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Procesar reserva #14 (impuesto=19, descuento=10)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Procesar reserva #14 (impuesto=19, descuento=10)
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 25: Confirmar una reserva ya procesada ===
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Confirmar reserva #14 -> OperacionNoPermitidaError: [RES-002] No se puede confirmar la reserva #14: está Procesada
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Confirmar reserva #14
+2026-11-03 16:39:18 | INFO     | software_fj.main | === Simulación 26: Procesar una reserva que sigue pendiente (sin confirmar) ===
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Reserva creada: Reserva #15: Ana Gómez -> Portátiles Dell | duración 1 | estado Pendiente | costo por calcular
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | ÉXITO - Crear reserva de 'Portátiles Dell' para doc 1012345678
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Crear reserva de 'Portátiles Dell' para doc 1012345678
+2026-11-03 16:39:18 | ERROR    | software_fj.src.sistema | FALLO - Procesar reserva #15 (impuesto=None, descuento=None) -> OperacionNoPermitidaError: [RES-002] No se puede procesar la reserva #15: está Pendiente (debe estar Confirmada)
+2026-11-03 16:39:18 | INFO     | software_fj.src.sistema | Fin de la operación: Procesar reserva #15 (impuesto=None, descuento=None)
+2026-11-03 16:39:18 | INFO     | software_fj.main | Sobrecarga - Costo base (sin extras): $360000.00
+2026-11-03 16:39:18 | INFO     | software_fj.main | Sobrecarga - Con IVA 19 %: $428400.00
+2026-11-03 16:39:18 | INFO     | software_fj.main | Sobrecarga - Con descuento 20 %: $288000.00
+2026-11-03 16:39:18 | INFO     | software_fj.main | Sobrecarga - Con descuento 20 % + IVA: $342720.00
+2026-11-03 16:39:18 | INFO     | software_fj.main | Sobrecarga - Parámetros opcionales (impuesto=5): $378000.00
+2026-11-03 16:39:18 | ERROR    | software_fj.main | Sobrecarga - Impuesto negativo (inválido): [CAL-001] Impuesto inválido: -10.0% (no puede ser negativo)
+2026-11-03 16:39:18 | INFO     | software_fj.main | Resumen: 34 operaciones, 16 exitosas, 18 fallidas
+2026-11-03 16:39:18 | INFO     | software_fj.main | ========== FIN DE LA EJECUCIÓN ==========
