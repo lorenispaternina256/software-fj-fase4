@@ -79,13 +79,22 @@ class ValidacionError(SoftwareFJError):
 
 
 class ClienteInvalidoError(ValidacionError):
-    """Los datos personales de un cliente no son válidos."""
+    """
+    Los datos personales de un cliente no son válidos.
+
+    Se lanza cuando el nombre, documento, correo o teléfono no cumplen el
+    formato esperado, o cuando el documento ya está registrado.
+    """
 
     codigo_por_defecto = "CLI-001"
 
 
 class ParametroFaltanteError(ValidacionError):
-    """Falta un parámetro obligatorio (llega ``None`` o vacío)."""
+    """
+    Falta un parámetro obligatorio (llega ``None`` o vacío).
+
+    Se lanza al crear un cliente sin alguno de sus datos obligatorios.
+    """
 
     codigo_por_defecto = "VAL-002"
 
@@ -100,13 +109,23 @@ class ServicioError(SoftwareFJError):
 
 
 class ServicioNoDisponibleError(ServicioError):
-    """Se intentó usar un servicio que no está disponible o sin cupo."""
+    """
+    Se intentó usar un servicio que no está disponible o sin cupo.
+
+    Se lanza al reservar un servicio marcado como no disponible o al pedir
+    más equipos de los que hay en alquiler.
+    """
 
     codigo_por_defecto = "SRV-001"
 
 
 class ParametroServicioInvalidoError(ServicioError):
-    """Un parámetro de creación o uso de un servicio es inválido."""
+    """
+    Un parámetro de creación o uso de un servicio es inválido.
+
+    Se lanza, por ejemplo, con una tarifa negativa, un nivel de asesoría
+    inexistente o cuando faltan argumentos al crear el servicio.
+    """
 
     codigo_por_defecto = "SRV-002"
 
@@ -121,13 +140,23 @@ class ReservaError(SoftwareFJError):
 
 
 class ReservaInvalidaError(ReservaError):
-    """La reserva no se puede crear o procesar con los datos recibidos."""
+    """
+    La reserva no se puede crear o procesar con los datos recibidos.
+
+    Se lanza con una duración menor o igual a cero, un cliente inexistente,
+    una sala sin capacidad suficiente o un cálculo de costo inconsistente.
+    """
 
     codigo_por_defecto = "RES-001"
 
 
 class OperacionNoPermitidaError(ReservaError):
-    """La operación no es válida para el estado actual de la reserva."""
+    """
+    La operación no es válida para el estado actual de la reserva.
+
+    Se lanza, por ejemplo, al cancelar una reserva ya cancelada, confirmar
+    una reserva ya procesada o procesar una reserva sin confirmar.
+    """
 
     codigo_por_defecto = "RES-002"
 
@@ -136,6 +165,10 @@ class OperacionNoPermitidaError(ReservaError):
 # Errores de cálculo
 # ---------------------------------------------------------------------------
 class CalculoInconsistenteError(SoftwareFJError):
-    """El cálculo de un costo produjo o recibió valores incoherentes."""
+    """
+    El cálculo de un costo produjo o recibió valores incoherentes.
+
+    Se lanza con un descuento fuera del rango 0-100 % o un impuesto negativo.
+    """
 
     codigo_por_defecto = "CAL-001"
