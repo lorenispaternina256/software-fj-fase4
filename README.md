@@ -235,3 +235,10 @@ Python no admite varias funciones con el mismo nombre y distinta firma. La sobre
 ## Almacenamiento
 
 Toda la información vive en **objetos y listas en memoria** (`SistemaGestion._clientes`, `_servicios` y `_reservas`). El único archivo que escribe el sistema es `logs/sistema.log`, que guarda los eventos y los errores.
+
+## Autora
+
+**Lorenis Paternina** – Estudiante de Ingeniería de Sistemas, UNAD.
+Proyecto desarrollado para el curso Programación (213023), grupo 213023_56.
+
+- GitHub: [@lorenispaternina256](https://github.com/lorenispaternina256)
